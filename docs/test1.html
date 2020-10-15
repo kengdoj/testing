@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<title>Copy anchor link test</title>
+
+<style>
+body {padding-left: 25px;}
+h1 h2 h3 h4 h5 h6 {display: inline-block;}
+</style>
+
+</head>
+<body>
+
+<h1 id="h1">Heading 1</h1>
+<p>text 1</p>
+<h2 style="display: inline-block;">Heading 2</h2>
+<p>text 2</p>
+<h3 id="h3"  style="display: inline-block;">Heading 3</h3>
+<p>text 3</p>
+<h4  style="display: inline-block;">Heading 4</h4>
+<p>text 4</p>
+<h5  style="display: inline-block;">Heading 5</h5>
+<p>text 5</p>
+<h6  style="display: inline-block;">Heading 6</h6>
+<p>text 6</p>
+<div role="heading" aria-level="7" id="h7"  style="display: inline-block;">Heading 7</div>
+<p>Some text</p>
+
+
+<script src="anchor.min.js"></script>
+<script>
+
+anchors.options = {
+  visible: 'always',
+  placement: 'left',
+  ariaLabel: 'copy',
+  titleText: 'permalink to this header'
+  
+};
+anchors.add();
+alert('anchors added');
+  
+  $( document ).ready(function() {
+	  $( ".anchorjs-link" ).click(function() {    
+			var pageurl = window.location.href;
+			console.log(pageurl);
+			var pageurl = pageurl.split('#')[0]; //base page link
+			console.log(pageurl);
+			ext = $(this).attr('href'); //specific extension  #XYZ
+			console.log(ext);
+			url = pageurl+ext; //link you want to copy
+			console.log(url);
+
+			//Copy To clipboard
+			var temp = document.createElement('input');
+			document.body.appendChild(temp);
+			temp.value = url;
+			temp.select();
+			document.execCommand('copy');
+			document.body.removeChild(temp);
+
+			//visible alert
+			$.toast({ 
+			  text : "Link copied to clipboard", 
+			  showHideTransition : 'slide',  // It can be plain, fade or slide
+			  bgColor : '#1a4480',              // Background color for toast
+			  textColor : '#ffffff',            // text color
+			  allowToastClose : false,       // Show the close button or not
+			  hideAfter : 5000,              // `false` to make it sticky or time in miliseconds to hide after
+			  stack : false,                     // `fakse` to show one stack at a time count showing the number of toasts that can be shown at once
+			  textAlign : 'left',            // Alignment of text i.e. left, right, center
+			  position : 'bottom-left'      // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+
+
+			});
+
+	  });
+});
+</script>
+
+</body>
+</html>
